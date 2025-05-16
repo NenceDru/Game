@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исследователь</title>
+    <link rel="stylesheet" href="CSS/css.css">
+    <script defer src="JS/js.js"></script>
+    <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исследователь</title>
+</head>
+<body>
+    <div id="game-container">
+        <!-- Фон и игровые элементы создаются динамически -->
+        <div id="background"></div>
+        
+        <!-- Экран приветствия -->
+        <div id="welcome-screen" class="screen">
+            <h1>Исследователь</h1>
+            <p>Управляйте квадрокоптером с помощью клавиш W и S</p>
+            <p>Избегайте стен и собирайте батарейки для подзарядки</p>
+            <input type="text" id="player-name" placeholder="Введите ваше имя">
+            <button id="start-btn">Начать игру</button>
+        </div>
+        
+        <!-- Игровой экран (изначально скрыт) -->
+        <div id="game-screen" class="screen hidden">
+            <!-- Игровые элементы создаются динамически -->
+            <div id="player"></div>
+            <div class="info-panel">
+                <div id="player-info">Игрок: </div>
+                <div id="time-info">Время: 00:00</div>
+                <div>Заряд: <span id="power-percent">50</span>%</div>
+                <div class="power-bar">
+                    <div class="power-fill" id="power-fill"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран результата (изначально скрыт) -->
+        <div id="result-screen" class="screen hidden">
+            <h1>Результат</h1>
+            <p id="result-text">Игрок: ... Время: ...</p>
+            <button id="restart-btn">Играть снова</button>
+        </div>
+        
+        <!-- Экран проигрыша (изначально скрыт) -->
+        <div id="gameover-screen" class="screen hidden">
+            <h1>Игра окончена</h1>
+            <p>Квадрокоптер разбился!</p>
+            <p id="gameover-text">Игрок: ... Время: ...</p>
+            <button id="gameover-restart-btn">Попробовать снова</button>
+        </div>
+        
+        <!-- Оверлей паузы -->
+        <div id="pause-overlay" class="pause-overlay">
+            <div class="pause-text">ПАУЗА<br>Нажмите ESC для продолжения</div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            overflow: hidden;
+            border: 2px solid #4CAF50;
+            background-color: #333;
+        }
+        
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            transition: opacity 0.5s;
+            z-index: 10;
+        }
+        
+        .screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        input, button {
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #background {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="50" height="50" x="0" y="0" fill="%23222"/><rect width="50" height="50" x="50" y="50" fill="%23222"/></svg>');
+            background-size: 100px 100px;
+        }
+        
+        #player {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        
+        #player::before, #player::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 5px;
+            background-color: #45a049;
+            border-radius: 5px;
+        }
+        
+        #player::before {
+            top: -5px;
+            left: 10px;
+        }
+        
+        #player::after {
+            bottom: -5px;
+            left: 10px;
+        }
+        
+        .wall {
+            position: absolute;
+            width: 50px;
+            background-color: #8B4513;
+            border: 2px solid #A0522D;
+            z-index: 1;
+        }
+        
+        .battery {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            background-color: gold;
+            border: 2px solid #daa520;
+            border-radius: 5px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        
+        .battery::before {
+            content: '';
+            width: 10px;
+            height: 5px;
+            background-color: #333;
+            margin: 0 auto;
+        }
+        
+        .battery-part {
+            width: 100%;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 2px;
+        }
+        
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 3;
+            font-size: 0.9rem;
+        }
+        
+        .power-bar {
+            width: 100px;
+            height: 20px;
+            background-color: #333;
+            border: 1px solid #4CAF50;
+            margin-top: 5px;
+            position: relative;
+        }
+        
+        .power-fill {
+            position: absolute;
+            height: 100%;
+            width: 50%;
+            background-color: #4CAF50;
+            transition: width 0.3s;
+        }
+        
+        .explosion {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,100,0,0.8) 30%, rgba(255,0,0,0) 70%);
+            border-radius: 50%;
+            transform: scale(0);
+            opacity: 0;
+            z-index: 4;
+        }
+        
+        .collect-animation {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: gold;
+            border-radius: 50%;
+            opacity: 0.8;
+            transform: scale(0);
+            z-index: 3;
+            animation: collect 0.5s forwards;
+        }
+        
+        @keyframes collect {
+            0% { transform: scale(0); opacity: 0.8; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .pause-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .pause-text {
+            font-size: 2rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
